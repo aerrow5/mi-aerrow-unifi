@@ -1,8 +1,13 @@
 # Changelog for mi-poop-unifi
 
+aerrow-unifi-17.2.0
+* based on 17.2.0
+* tested with unifi 5.5.20
+* included changes initiated by drscream (/mi-core-unifi)
+
 aerrow-unifi-15.4.1
 * based on 15.4.1
-* tested with unifiy 5.0.7
+* tested with unifi 5.0.7
 
 poop-unifi-15.3.0
 * Initial.
