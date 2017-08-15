@@ -8,7 +8,33 @@ PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 set -o errexit
 
 # Add unifi user
-useradd -d /tmp -s /usr/bin/false unifi
+echo "* Add UniFi user"
+useradd -d /opt/local/unifi -s /usr/bin/false unifi
+
+# Download & Install Unifi controller:
+# This script was tested with 5.5.20 so get that by default		
+# will mdata-get function here??
+UNIFI_VERSION=$(mdata-get unifi:version || echo '5.5.20')		
+
+echo "* Download UniFi Controller Software"
+wget http://dl.ubnt.com/unifi/${UNIFI_VERSION}/UniFi.unix.zip -O /tmp/UniFi.unix.zip
+
+echo "* Extract Unifi to /opt/local"
+unzip /tmp/UniFi.unix.zip -d /opt/local/unifi
+
+test -d /srv/unifi/data || mkdir -p /srv/unifi/data && chown unifi /srv/unifi/data		
+test -d /srv/unifi/run  || mkdir -p /srv/unifi/run && chown unifi /srv/unifi/run		
+		
+ln -s /srv/unifi/data /opt/local/UniFi/data		
+ln -s /var/log/run /opt/local/UniFi/run		
+		
+mkdir /opt/local/unifi/{logs,work}	
+
+echo "* Use local installed mongodb binary"
+ln -sf /opt/local/bin/mongod /opt/local/UniFi/bin/mongod
+
+echo "* Chown everything to the unify user"
+chown -R unify:other /opt/local/UniFi
 
 # Clean up
 # echo "* Cleaning up."
