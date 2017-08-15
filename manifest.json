@@ -1,0 +1,9 @@
+{
+  "name":         "aerrow-unifi",
+  "version":      "17.2.0",
+  "description":  "UniFi Controller on SmartOS",
+  "organization": "Artned",
+  "brand":        "Instance",
+  "homepage":     "http://www.artned.org/",
+  "base":         "643de2c0-672e-11e7-9a3f-ff62fd3708f8"
+}
