@@ -1,44 +1,45 @@
-#!/usr/bin/bash
+#!/usr/bashin/bash
 #
 # Put customizations to your image in this file.
 
 PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 
+# This script was tested with 5.5.20 so get that by default             
+# will mdata-get function here??
+UNIFI_VERSION=$(mdata-get UniFi:version || echo '5.5.20')
+
 # Exit if any commands fail
 set -o errexit
 
-# Add unifi user
+# Add UniFi user
 echo "* Add UniFi user"
-useradd -d /opt/local/unifi -s /usr/bin/false unifi
+useradd -d /opt/local/UniFi -s /usr/bin/false UniFi
 
-# Download & Install Unifi controller:
-# This script was tested with 5.5.20 so get that by default		
-# will mdata-get function here??
-UNIFI_VERSION=$(mdata-get unifi:version || echo '5.5.20')		
+# Download & Install UniFi controller:
 
-echo "* Download UniFi Controller Software"
-wget http://dl.ubnt.com/unifi/${UNIFI_VERSION}/UniFi.unix.zip -O /tmp/UniFi.unix.zip
+echo "* Download UniFi Controller Software" 
+wget --no-check-certificate https://www.ubnt.com/downloads/unifi/${UNIFI_VERSION}/UniFi.unix.zip -O /tmp/UniFi.unix.zip 
 
-echo "* Extract Unifi to /opt/local"
+echo "* Extract UniFi to /opt/local"
 unzip /tmp/UniFi.unix.zip -d /opt/local
 
-test -d /srv/unifi/data || mkdir -p /srv/unifi/data && chown unifi /srv/unifi/data		
-test -d /srv/unifi/run  || mkdir -p /srv/unifi/run && chown unifi /srv/unifi/run		
-		
-ln -s /srv/unifi/data /opt/local/unifi/data		
-ln -s /var/log/run /opt/local/unifi/run		
-		
-mkdir /opt/local/unifi/{logs,work}	
+test -d /srv/UniFi/data || mkdir -p /srv/UniFi/data && chown UniFi /srv/UniFi/data             
+test -d /srv/UniFi/run  || mkdir -p /srv/UniFi/run && chown UniFi /srv/UniFi/run               
+                
+ln -s /srv/UniFi/data /opt/local/UniFi/data            
+ln -s /var/log/run /opt/local/UniFi/run                
+                
+mkdir /opt/local/UniFi/{logs,work}      
 
 echo "* Use local installed mongodb binary"
-ln -sf /opt/local/bin/mongod /opt/local/unifi/bin/mongod
+ln -sf /opt/local/bin/mongod /opt/local/UniFi/bin/mongod
 
 echo "* Chown everything to the unify user"
-chown -R unifi:other /opt/local/UniFi
+chown -R UniFi:other /opt/local/UniFi
 
 # Clean up
-# echo "* Cleaning up."
-# rm -rf /root/*
+echo "* Cleaning up."
+rm -rf /root/*
 
 # Prepare image for provisioning
 sm-prepare-image -y
