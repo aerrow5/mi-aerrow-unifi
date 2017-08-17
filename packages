@@ -1,5 +1,6 @@
 # List packages to add to your image one per line.
 unzip
+htop
 openjdk8
 mongodb
 nano
