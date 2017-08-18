@@ -4,7 +4,7 @@
 
 PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 
-# This script was tested with 5.5.20 so get that by default             
+# This script was tested with 5.5.20 so get that by default
 # will mdata-get function here??
 UNIFI_VERSION=$(mdata-get UniFi:version || echo '5.5.20')
 
@@ -13,29 +13,21 @@ set -o errexit
 
 # Add UniFi user
 echo "* Add UniFi user"
-useradd -d /opt/local/UniFi -s /usr/bin/false UniFi
+useradd -d /opt/local/UniFi -s /usr/bin/false unifi
 
 # Download & Install UniFi controller:
 
-echo "* Download UniFi Controller Software" 
-wget --no-check-certificate https://www.ubnt.com/downloads/unifi/${UNIFI_VERSION}/UniFi.unix.zip -O /tmp/UniFi.unix.zip 
+echo "* Download UniFi Controller Software"
+wget --no-check-certificate https://www.ubnt.com/downloads/unifi/${UNIFI_VERSION}/UniFi.unix.zip -O /tmp/UniFi.unix.zip
 
 echo "* Extract UniFi to /opt/local"
 unzip /tmp/UniFi.unix.zip -d /opt/local
-
-test -d /srv/UniFi/data || mkdir -p /srv/UniFi/data && chown UniFi /srv/UniFi/data             
-test -d /srv/UniFi/run  || mkdir -p /srv/UniFi/run && chown UniFi /srv/UniFi/run               
-                
-ln -s /srv/UniFi/data /opt/local/UniFi/data            
-ln -s /var/log/run /opt/local/UniFi/run                
-                
-mkdir /opt/local/UniFi/{logs,work}      
 
 echo "* Use local installed mongodb binary"
 ln -sf /opt/local/bin/mongod /opt/local/UniFi/bin/mongod
 
 echo "* Chown everything to the unify user"
-chown -R UniFi:other /opt/local/UniFi
+chown -R unifi:other /opt/local/UniFi
 
 # Clean up
 echo "* Cleaning up."
