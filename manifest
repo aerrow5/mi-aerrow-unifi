@@ -1,7 +1,7 @@
 name="aerrow-unifi"
 organization="Artned"
 brand="Instance"
-version="17.2.0"
+version="17.3.0"
 description="UniFi Controller on SmartOS"
 homepage="http://www.artned.org/"
 users="root"

@@ -4,9 +4,9 @@
 
 PATH=/opt/local/gnu/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 
-# This script was tested with 5.5.20 so get that by default
+# This script was tested with 5.6.26 so get that by default
 # will mdata-get function here??
-UNIFI_VERSION=$(mdata-get UniFi:version || echo '5.5.20')
+UNIFI_VERSION=$(mdata-get UniFi:version || echo '5.6.26')
 
 # Exit if any commands fail
 set -o errexit

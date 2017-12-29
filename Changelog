@@ -1,5 +1,9 @@
 # Changelog for mi-poop-unifi
 
+aerrow-unifi-17.3.0
+* based on 17.3.0
+* tested with unifi 5.6.26
+
 aerrow-unifi-17.2.0
 * based on 17.2.0
 * tested with unifi 5.5.20
